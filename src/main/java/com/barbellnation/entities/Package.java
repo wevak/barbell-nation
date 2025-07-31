@@ -38,4 +38,38 @@ public class Package {
 	@OneToMany(mappedBy = "packageId", orphanRemoval = true,
 			cascade = CascadeType.ALL/* ,fetch = FetchType.EAGER */)
 	private List<Customer> customers = new ArrayList<>();
+
+	public long getPackageId() {
+		return packageId;
+	}
+
+	public void setPackageId(long packageId) {
+		this.packageId = packageId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	
+	
 }
