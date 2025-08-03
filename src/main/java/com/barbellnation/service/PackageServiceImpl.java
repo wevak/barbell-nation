@@ -46,12 +46,6 @@ public class PackageServiceImpl implements PackageService {
 
 	@Override
 	public ApiResponse addNewPackage(PackageReqDTO packageEntity) {
-//		if(packageDao.findByName(packageEntity.getName()).isEmpty()) {
-//			Package entity = modelMapper.map(packageEntity, Package.class);
-//			
-//			return modelMapper.map(packageDao.save(entity), PackageRespDTO.class);
-//		}
-//		throw new RuntimeException("Duplicate package!");
 		
 		//to check valid owner id
 		Owner owner = ownerDao.findById(packageEntity.getOwnerId())
@@ -77,10 +71,10 @@ public class PackageServiceImpl implements PackageService {
 		public ApiResponse updatePackageDetails(Long id, PackageReqDTO packageReq) {
 
 			Package existingPackage = packageDao.findById(id)
-					.orElseThrow();
+					.orElseThrow(()-> new ResourceNotFoundException("Invalid Package Id"));
 
 			Owner existingOwner = ownerDao.findById(packageReq.getOwnerId())
-					.orElseThrow();
+					.orElseThrow(()-> new ResourceNotFoundException("Invalid owner Id"));
 			
 			existingPackage.setOwnerId(existingOwner);
 			

@@ -40,7 +40,7 @@ public class SecurityConfiguration {
 						// permit all - HTTP methods - OPTIONS
 						.requestMatchers(HttpMethod.OPTIONS).permitAll()
 
-						.requestMatchers("/owners", "/trainers", "/packages/**").hasRole("ADMIN")
+						.requestMatchers("/owners", "/trainers", "/packages/**","/customers/**").hasRole("ADMIN")
 
 						.requestMatchers("/products/purchase/**").hasRole("CUSTOMER")
 

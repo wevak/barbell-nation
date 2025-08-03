@@ -17,7 +17,7 @@ import com.barbellnation.service.TrainerService;
 public class TrainerController {
 	
 	@Autowired
-	private TrainerService trainerService;
+	private  TrainerService trainerService;
 	
 	public TrainerController() {
 		System.out.println("in ctor" + getClass());

@@ -39,6 +39,19 @@ public class Package {
 	@OneToMany(mappedBy = "packageId", orphanRemoval = true,
 			cascade = CascadeType.ALL/* ,fetch = FetchType.EAGER */)
 	private List<Customer> customers = new ArrayList<>();
+	
+	public void addCustomer(Customer c) {
+		this.customers.add(c);
+		c.setPackageId(this);
+	}
+	
+	
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+
 
 	public long getPackageId() {
 		return packageId;
