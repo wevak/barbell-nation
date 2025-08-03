@@ -35,6 +35,18 @@ public class Owner extends BaseEntity implements UserDetails {
 //		super();
 //		System.out.println(trainers);
 //	}
+	
+	public void addPackage(Package pkg) {
+		this.packages.add(pkg);
+		pkg.setOwnerId(this);
+	}
+	
+	//Helper method to de link a bi dir asso between Owner 1----* packages
+		public void removePackage(Package pkg) {
+			this.packages.remove(pkg);
+			pkg.setOwnerId(null);
+//			
+		}
 
 	// implement UserDetial i/f methods
 	@Override
@@ -71,6 +83,14 @@ public class Owner extends BaseEntity implements UserDetails {
 
 	public void setGymName(String gymName) {
 		this.gymName = gymName;
+	}
+
+	public List<Package> getPackages() {
+		return packages;
+	}
+
+	public void setPackages(List<Package> packages) {
+		this.packages = packages;
 	}
 	
 	

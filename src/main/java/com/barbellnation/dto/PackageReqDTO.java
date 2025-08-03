@@ -1,12 +1,10 @@
 package com.barbellnation.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 public class PackageReqDTO {
 	@NotBlank(message = "owner id is required")
-	private int ownerId;
+	private Long ownerId;
 	
 	@NotBlank(message = "package name is required")
 	private String name;
@@ -26,11 +24,11 @@ public class PackageReqDTO {
 				+ "]";
 	}
 
-	public int getOwnerId() {
+	public Long getOwnerId() {
 		return ownerId;
 	}
 
-	public void setOwnerId(int ownerId) {
+	public void setOwnerId(Long ownerId) {
 		this.ownerId = ownerId;
 	}
 
