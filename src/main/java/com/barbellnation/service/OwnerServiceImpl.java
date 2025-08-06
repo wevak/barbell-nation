@@ -1,6 +1,7 @@
 package com.barbellnation.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.barbellnation.dao.OwnerDao;
 import com.barbellnation.dto.ApiResponse;
+import com.barbellnation.dto.OwnerRespDTO;
 import com.barbellnation.dto.UserReqDTO;
 import com.barbellnation.entities.Owner;
 
@@ -28,8 +30,12 @@ public class OwnerServiceImpl implements OwnerService {
 	private PasswordEncoder encoder;
 
 	@Override
-	public List<Owner> getAllOwners() {
-		return ownerDao.findAll();
+	public List<OwnerRespDTO> getAllOwners() {
+		
+		return ownerDao.findAll()
+						.stream()
+						.map(owner -> modelMapper.map(owner, OwnerRespDTO.class))
+						.collect(Collectors.toList());
 	}
 
 	@Override
