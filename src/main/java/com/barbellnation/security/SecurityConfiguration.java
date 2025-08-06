@@ -34,13 +34,13 @@ public class SecurityConfiguration {
 		http.csrf(csrf -> csrf.disable()) // disable CSRF token generation
 				.authorizeHttpRequests(request -> request
 						.requestMatchers("/v*/api-docs/**", "/swagger-ui/**", "/users/signup",
-								"/users/signin")
+								"/users/signin", "/payments/**")
 						.permitAll()
 						// after react integration - to allow pre flight requests -
 						// permit all - HTTP methods - OPTIONS
 						.requestMatchers(HttpMethod.OPTIONS).permitAll()
 
-						.requestMatchers("/owners", "/trainers", "/packages/**","/customers/**").hasRole("ADMIN")
+						.requestMatchers("/owners", "/trainers", "/packages/**", "/customers/**").hasRole("ADMIN")
 
 						.requestMatchers("/products/purchase/**").hasRole("CUSTOMER")
 

@@ -28,6 +28,11 @@ public class Customer extends BaseEntity {
 	private Package packageId;
 	
 //	@OneToMany(mappedBy = "customerId", orphanRemoval = true, cascade = CascadeType.ALL)
-//	private List<Payment> payments = new ArrayList<>();
+	@OneToMany(mappedBy = "customer", orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<CustomerPayment> payments = new ArrayList<>();
 	
+	public void addPayment(CustomerPayment cp) {
+		this.payments.add(cp);
+		cp.setCustomer(this);
+	}
 }
