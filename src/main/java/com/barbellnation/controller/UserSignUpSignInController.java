@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserSignUpSignInController {
 	private final OwnerService ownerService;
 	private final AuthenticationManager authenticationManager;
