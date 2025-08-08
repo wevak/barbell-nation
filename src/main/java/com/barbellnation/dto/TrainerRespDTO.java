@@ -3,29 +3,26 @@ package com.barbellnation.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
 @ToString
-public class CustomerReqDTO {
-	@NotNull(message = "package id is required")
-	private Long packageId;
-	
-	@NotBlank(message = "first name is required !!!")
+@AllArgsConstructor
+@NoArgsConstructor
+public class TrainerRespDTO {
+	private Long id;
 	private String name;
-	
-	@Email(message = "invalid email format !")
 	private String email;
-	
-	@NotBlank(message = "phone is required !!!")
 	private String phone;
-	
-	@NotBlank(message = "gender is required !!!")
 	private String gender;
+	private int yearsOfExperience;	
 	
+	private Long packageId;
+    
 
 }

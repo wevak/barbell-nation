@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.barbellnation.custom_exceptions.ResourceNotFoundException;
+import com.barbellnation.dto.ApiResponse;
 import com.barbellnation.dto.CustomerReqDTO;
 import com.barbellnation.dto.CustomerRespDTO;
 import com.barbellnation.entities.Customer;
 import com.barbellnation.service.CustomerService;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -68,6 +71,21 @@ public class CustomerController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ResourceNotFoundException("updation failed"));
 		}
 	}
-	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getCustomerById(@PathVariable @NotNull @Min(1) Long id) {
+	    try {
+	        CustomerRespDTO customer = customerService.getCustomerById(id);
+	        return ResponseEntity.ok(customer);
+	    } catch (ResourceNotFoundException e) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                .body(new ApiResponse(e.getMessage()));
+	    } catch (Exception e) {
+	        e.printStackTrace(); // Debugging in console
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body(new ApiResponse("An unexpected error occurred while fetching customer with ID: " + id));
+	    }
+	}
+ 
+
 
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,9 @@ import com.barbellnation.custom_exceptions.ResourceNotFoundException;
 import com.barbellnation.dto.OwnerRespDTO;
 import com.barbellnation.entities.Owner;
 import com.barbellnation.service.OwnerService;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/owners")
@@ -43,6 +47,16 @@ public class OwnerController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResourceNotFoundException("owner list not found"));
 		}
 		
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getOwnerById(@PathVariable @NotNull @Min(1) Long id){
+		try {
+			return ResponseEntity.ok(ownerService.findOwnerById(id));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ResourceNotFoundException("Package not found!"));
+		}
 	}
 	
 }

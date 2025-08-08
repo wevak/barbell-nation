@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public class PackageReqDTO {
 	@NotBlank(message = "owner id is required")
-	private Long ownerId;
+	private Long id;
 	
 	@NotBlank(message = "package name is required")
 	private String name;
@@ -20,16 +20,16 @@ public class PackageReqDTO {
 
 	@Override
 	public String toString() {
-		return "PackageReqDTO [ownerId=" + ownerId + ", name=" + name + ", duration=" + duration + ", amount=" + amount
+		return "PackageReqDTO [ownerId=" + id + ", name=" + name + ", duration=" + duration + ", amount=" + amount
 				+ "]";
 	}
 
 	public Long getOwnerId() {
-		return ownerId;
+		return id;
 	}
 
 	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
+		this.id = ownerId;
 	}
 
 	public String getName() {

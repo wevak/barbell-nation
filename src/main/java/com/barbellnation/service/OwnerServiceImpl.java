@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.barbellnation.custom_exceptions.ResourceNotFoundException;
 import com.barbellnation.dao.OwnerDao;
 import com.barbellnation.dto.ApiResponse;
 import com.barbellnation.dto.OwnerRespDTO;
@@ -47,5 +48,15 @@ public class OwnerServiceImpl implements OwnerService {
 		Owner persistentEntity = ownerDao.save(ownerEntity);
 		
 		return new ApiResponse("User registered with ID " + persistentEntity.getId());
+	}
+
+	@Override
+	public OwnerRespDTO findOwnerById(long id) {
+
+		Owner ownerEntity = ownerDao.findById(id)
+				.orElseThrow(()-> new ResourceNotFoundException("Invalid owner id!"));
+		
+		return modelMapper.map(ownerEntity, OwnerRespDTO.class);
+
 	}
 }

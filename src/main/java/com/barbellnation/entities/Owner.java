@@ -8,7 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "owner")
@@ -22,8 +26,8 @@ public class Owner extends BaseEntity implements UserDetails {
 	@Column(name = "gym_name", length = 60)
 	private String gymName;
 
-	@OneToMany(mappedBy = "ownerId", orphanRemoval = true, cascade = CascadeType.ALL/* ,fetch = FetchType.EAGER */)
-	private List<Trainer> trainers = new ArrayList<>();
+//	@OneToMany(mappedBy = "ownerId", orphanRemoval = true, cascade = CascadeType.ALL/* ,fetch = FetchType.EAGER */)
+//	private List<Trainer> trainers = new ArrayList<>();
 
 	@OneToMany(mappedBy = "ownerId", orphanRemoval = true, cascade = CascadeType.ALL/* ,fetch = FetchType.EAGER */)
 	private List<Package> packages = new ArrayList<>();
@@ -35,18 +39,28 @@ public class Owner extends BaseEntity implements UserDetails {
 //		super();
 //		System.out.println(trainers);
 //	}
-	
+
 	public void addPackage(Package pkg) {
 		this.packages.add(pkg);
 		pkg.setOwnerId(this);
 	}
-	
-	//Helper method to de link a bi dir asso between Owner 1----* packages
-		public void removePackage(Package pkg) {
-			this.packages.remove(pkg);
-			pkg.setOwnerId(null);
+
+	// Helper method to de link a bi dir asso between Owner 1----* packages
+	public void removePackage(Package pkg) {
+		this.packages.remove(pkg);
+		pkg.setOwnerId(null);
 //			
-		}
+	}
+
+	public void addInventory(Inventory inv) {
+		this.inventories.add(inv);
+		inv.setOwnerId(this);
+	}
+
+	public void removeInventory(Inventory inv) {
+		this.inventories.remove(inv);
+		inv.setOwnerId(null);
+	}
 
 	// implement UserDetial i/f methods
 	@Override
@@ -92,6 +106,13 @@ public class Owner extends BaseEntity implements UserDetails {
 	public void setPackages(List<Package> packages) {
 		this.packages = packages;
 	}
-	
-	
+
+	public List<Inventory> getInventories() {
+		return inventories;
+	}
+
+	public void setInventories(List<Inventory> inventories) {
+		this.inventories = inventories;
+	}
+
 }

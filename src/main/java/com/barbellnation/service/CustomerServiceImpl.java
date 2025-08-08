@@ -30,13 +30,50 @@ public class CustomerServiceImpl implements CustomerService {
 
 	
 	
-	@Override
-	public List<CustomerRespDTO> getAllCustomer() {
+    @Override
+    public List<CustomerRespDTO> getAllCustomer() {
+        return customerDao.findAll()
+                .stream()
+                .map(customer -> {
+                    CustomerRespDTO dto = new CustomerRespDTO();
+                    dto.setCustomerId(customer.getId());
+                    dto.setName(customer.getName());
+                    dto.setEmail(customer.getEmail());
+                    dto.setPhone(customer.getPhone());
+                    dto.setGender(customer.getGender());
+                    if (customer.getPackageId() != null) {
+                        dto.setPackageId(customer.getPackageId().getPackageId());
+                    }
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
 
-		return customerDao.findAll()
-				.stream()
-				.map(customer -> modelMapper.map(customer, CustomerRespDTO.class))
-				.collect(Collectors.toList());
+	@Override
+	public CustomerRespDTO getCustomerById(Long customerId) {
+	    try {
+	        Customer customer = customerDao.findById(customerId)
+	                .orElseThrow(() -> new ResourceNotFoundException(
+	                        "Customer not found with ID: " + customerId));
+
+	        CustomerRespDTO resp = new CustomerRespDTO();
+	        resp.setCustomerId(customer.getId());
+	        resp.setName(customer.getName());
+	        resp.setEmail(customer.getEmail());
+	        resp.setPhone(customer.getPhone());
+	        resp.setGender(customer.getGender());
+
+	        if (customer.getPackageId() != null) {
+	            // Hibernate will trigger a select here if lazy loaded
+	            resp.setPackageId(customer.getPackageId().getPackageId());
+	        }
+
+	        return resp;
+	    } catch (Exception e) {
+	        // Log the exact cause of 500
+	        e.printStackTrace();
+	        throw e; // Let controller handle it
+	    }
 	}
 
 

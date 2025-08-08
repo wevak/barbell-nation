@@ -3,6 +3,8 @@ package com.barbellnation.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +34,10 @@ public class Package {
 	@Column(name="amount", unique = true, nullable = false)
 	private String amount;
 	
+	@OneToMany(mappedBy = "packageId", orphanRemoval = true, cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<Trainer> trainers = new ArrayList<>();
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id", nullable=false)
 	private Owner ownerId;
@@ -44,13 +50,19 @@ public class Package {
 		this.customers.add(c);
 		c.setPackageId(this);
 	}
+	public void addTrainer(Trainer t) {
+		this.trainers.add(t);
+		t.setPackageId(this);
+	}
 	
 	
 
 	public List<Customer> getCustomers() {
 		return customers;
 	}
-
+	public List<Trainer> getTrainers() {
+		return trainers;
+	}
 
 
 	public long getPackageId() {
@@ -96,5 +108,7 @@ public class Package {
 	public Owner getOwnerId() {
 		return ownerId;
 	}
+	
+	
 	
 }

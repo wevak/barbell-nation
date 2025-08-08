@@ -12,18 +12,10 @@ import lombok.ToString;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CustomerRespDTO {
-	@NotBlank(message = "package id is required")
 	private Long customerId;
-	
-	@NotBlank(message = "first name is required !!!")
 	private String name;
-	
-	@Email(message = "invalid email format !")
 	private String email;
-	
-	@NotBlank(message = "phone is required !!!")
 	private String phone;
-	
-	@NotBlank(message = "gender is required !!!")
 	private String gender;
+	private Long packageId;
 }

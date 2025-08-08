@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 public class OwnerRespDTO {
 	@NotNull(message = "owner id is required")
-	private Long ownerId;
+	private Long id;
 	
 	@NotBlank(message = "first name is required !!!")
 	private String name;

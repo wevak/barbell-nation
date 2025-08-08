@@ -12,4 +12,7 @@ public interface OwnerService {
 	List<OwnerRespDTO> getAllOwners();
 	
 	ApiResponse signUp(UserReqDTO dto);
+	OwnerRespDTO findOwnerById(long id);
+	
+
 }

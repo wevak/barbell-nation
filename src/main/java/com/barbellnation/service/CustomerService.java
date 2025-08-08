@@ -14,4 +14,5 @@ public interface CustomerService {
     ApiResponse addNewCustomer(CustomerReqDTO crDTO);
     
     ApiResponse updateCustomer(Long id, CustomerReqDTO crDTO);
+    CustomerRespDTO getCustomerById(Long customerId);
 }

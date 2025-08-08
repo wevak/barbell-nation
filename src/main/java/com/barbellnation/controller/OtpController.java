@@ -16,7 +16,7 @@ import com.barbellnation.service.OtpService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/public")
+@RequestMapping("/users")
 @CrossOrigin(origins = "http://localhost:5173")
 public class OtpController {
 
