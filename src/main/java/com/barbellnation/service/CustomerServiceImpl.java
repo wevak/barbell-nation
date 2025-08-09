@@ -25,10 +25,6 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerDao customerDao;
     private final ModelMapper modelMapper;
     private final PackageDao packageDao;
-
-
-
-	
 	
     @Override
     public List<CustomerRespDTO> getAllCustomer() {
@@ -75,11 +71,6 @@ public class CustomerServiceImpl implements CustomerService {
 	        throw e; // Let controller handle it
 	    }
 	}
-
-
-
-
-
 	@Override
 	public ApiResponse addNewCustomer(CustomerReqDTO crDTO) {
 		// TODO Auto-generated method stub
@@ -91,10 +82,6 @@ public class CustomerServiceImpl implements CustomerService {
 		pkg.addCustomer(customer);
 		return new ApiResponse("Customer Added Successfully");
 	}
-
-
-
-
 
 	@Override
 	public ApiResponse updateCustomer(Long id, CustomerReqDTO crDTO) {
