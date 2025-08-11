@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.barbellnation.dto.AuthRequest;
 import com.barbellnation.dto.AuthResponse;
 import com.barbellnation.dto.UserReqDTO;
+import com.barbellnation.entities.Owner;
 import com.barbellnation.security.JwtUtils;
 import com.barbellnation.service.OwnerService;
 
@@ -58,6 +59,10 @@ public class UserSignUpSignInController {
 			// 2. invoke AuthMgr's authenticate
 			Authentication retAuth = 
 					authenticationManager.authenticate(authToken);
+			
+			Owner loggedInOwner = (Owner) retAuth.getPrincipal();
+			Long ownerId = loggedInOwner.getId();
+
 			System.out.println(retAuth.isAuthenticated());//true
 			System.out.println(retAuth.getPrincipal());//user entity
 			System.out.println(retAuth.getPrincipal().getClass());//
@@ -67,7 +72,7 @@ public class UserSignUpSignInController {
 					(HttpStatus.CREATED) //JWT - created
 					.body(
 							new AuthResponse("Auth successful!!!"
-									,jwtUtils.generateJwtToken(retAuth)));
+									,jwtUtils.generateJwtToken(retAuth), ownerId));
 		} catch (Exception e) {
 			System.out.println(e);
 			return ResponseEntity
