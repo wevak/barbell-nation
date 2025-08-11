@@ -1,5 +1,6 @@
 package com.barbellnation.entities;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,10 +98,6 @@ public class Package {
 		this.amount = amount;
 	}
 
-//	public Long getOwnerId() {
-//		return ownerId.getId();
-//	}
-
 	public void setOwnerId(Owner ownerId) {
 		this.ownerId = ownerId;
 	}
@@ -108,7 +105,18 @@ public class Package {
 	public Owner getOwnerId() {
 		return ownerId;
 	}
-	
-	
-	
+
+    // This method is now correctly implemented to parse the amount string.
+	public BigDecimal getPrice() {
+		if (this.amount != null && !this.amount.trim().isEmpty()) {
+            try {
+                return new BigDecimal(this.amount);
+            } catch (NumberFormatException e) {
+                // Handle the case where the amount string is not a valid number
+                System.err.println("Could not parse amount string: " + this.amount);
+                return BigDecimal.ZERO;
+            }
+        }
+		return BigDecimal.ZERO;
+	}
 }

@@ -27,12 +27,16 @@ public class Customer extends BaseEntity {
 	@JoinColumn(name = "package_id", nullable=false)
 	private Package packageId;
 	
-//	@OneToMany(mappedBy = "customerId", orphanRemoval = true, cascade = CascadeType.ALL)
 	@OneToMany(mappedBy = "customer", orphanRemoval = true, cascade = CascadeType.ALL)
-	private List<CustomerPayment> payments = new ArrayList<>();
+	private List<NewCustomerPayment> payments = new ArrayList<>();
 	
-	public void addPayment(CustomerPayment cp) {
+	public void addPayment(NewCustomerPayment cp) {
 		this.payments.add(cp);
 		cp.setCustomer(this);
 	}
+
+    // This method was added to resolve the compiler error in your service.
+    public void setPackage(Package aPackage) {
+        this.packageId = aPackage;
+    }
 }
